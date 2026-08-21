@@ -108,6 +108,22 @@ input {
     margin-bottom: 8px;
 }
 
+.amount-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.amount-symbol {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: var(--muted);
+}
+
+.amount-row input {
+    margin-bottom: 0; /* the wrapping .amount-row handles the spacing instead */
+}
 
 /* ============================================
    CURRENT MONTH CARD
@@ -201,7 +217,10 @@ input {
 
     .month-cell .paid-tag,
     .month-cell .unpaid-tag {
-        font-size: 14px;
+        font-size: 18px;
+    }
+    #rotationList p {
+        font-size: 40px;
     }
 }
 
@@ -246,7 +265,7 @@ footer {
 footer a {
     color: var(--muted);
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 18px;
 }
 
 
@@ -279,6 +298,11 @@ footer a {
     }
 
     .month-cell .m-name {
+        font-size: 14px;
+    }
+
+    .month-cell .paid-tag,
+    .month-cell .unpaid-tag {
         font-size: 13px;
     }
 }

@@ -20,7 +20,10 @@
             <h2>El turno de este mes</h2>
             <p id="currentName">Nombre</p>
             <p id="currentMonth">Mes</p>
-            <input id="amountInput" type="text" inputmode="decimal" placeholder="cantidad">
+            <div class="amount-row">
+                <span class="amount-symbol">$</span>
+                <input id="amountInput" type="text" inputmode="decimal" placeholder="cantidad">
+            </div>
             <button id="payBtn">Marcar como pagado</button>
             <p id="confirmBadge" hidden></p>
             <button id="reminderBtn">Copiar mensaje de recordatorio</button>
@@ -44,7 +47,7 @@
             <div id="historyList"></div>
         </section>
 
-        <!-- ===== SECTION 4: who's in the rotation, in order ===== -->
+        <!-- ===== SECTION 4: who's in the rotation, in order (just a list, no editing here) ===== -->
         <section id="rotationSection">
             <h2>Orden de Turnos</h2>
             <div id="rotationList"></div>
