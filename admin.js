@@ -21,6 +21,11 @@ const monthAbbr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 
 let viewYear = new Date().getFullYear();
 
+// small SVG icons for the PIN show/hide toggle -- swapped in and out,
+// no emoji, so it looks the same on every device
+const eyeOpenSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+const eyeClosedSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-7-11-7a20.4 20.4 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 7 11 7a20.4 20.4 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+
 
 /* ============================================
    DATE HELPERS
@@ -114,9 +119,24 @@ async function renderPinGate() {
                <textarea id="namesInput" placeholder="Rosita&#10;Javier&#10;Ofelia"></textarea>`
             : `<p>Enter your admin PIN to manage the rotation.</p>`
         }
-        <input id="pinField" type="password" inputmode="numeric" maxlength="6" placeholder="PIN">
+        <div class="pin-input-row">
+            <input id="pinField" type="password" inputmode="numeric" maxlength="6" placeholder="PIN">
+            <button type="button" id="togglePinBtn" class="toggle-pin-btn">Show</button>
+        </div>
         <button id="pinSubmit">${creating ? 'Create rotation' : 'Unlock'}</button>
     `;
+
+    document.querySelector('#togglePinBtn').addEventListener('click', function () {
+        const pinField = document.querySelector('#pinField');
+
+        if (pinField.type === 'password') {
+            pinField.type = 'text';
+            this.textContent = 'Hide';
+        } else {
+            pinField.type = 'password';
+            this.textContent = 'Show';
+        }
+    });
 
     document.querySelector('#pinSubmit').addEventListener('click', async function () {
         const pinVal = document.querySelector('#pinField').value.trim();
