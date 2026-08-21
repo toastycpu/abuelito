@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuota de el Abuelo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" type="module"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Cuota de el Abuelo</h1>
+    </header>
+
+    <main>
+
+        <!-- ===== SECTION 1: whose turn it is this month ===== -->
+        <section id="currentSection">
+            <h2>El turno de este mes</h2>
+            <p id="currentName">Nombre</p>
+            <p id="currentMonth">Mes</p>
+            <input id="amountInput" type="text" inputmode="decimal" placeholder="cantidad">
+            <button id="payBtn">Marcar como pagado</button>
+            <p id="confirmBadge" hidden></p>
+            <button id="reminderBtn">Copiar mensaje de recordatorio</button>
+        </section>
+
+        <!-- ===== SECTION 2: year view, 12 month boxes ===== -->
+        <section id="yearSection">
+            <h2>Vista Anual</h2>
+            <div id="yearGrid">
+                <div class="month-cell">
+                    <p class="m-label">Ene</p>
+                    <p class="m-name">Nombre</p>
+                </div>
+                <!-- ...one of these boxes per month, filled in by script.js... -->
+            </div>
+        </section>
+
+        <!-- ===== SECTION 3: list of past months and whether they got paid ===== -->
+        <section id="historySection">
+            <h2>Historial Reciente</h2>
+            <div id="historyList"></div>
+        </section>
+
+        <!-- ===== SECTION 4: who's in the rotation, in order ===== -->
+        <section id="rotationSection">
+            <h2>Orden de Turnos</h2>
+            <div id="rotationList"></div>
+        </section>
+
+        <!-- ===== SECTION 5: shown only if the admin hasn't set anything up yet ===== -->
+        <section id="notSetUpSection" hidden>
+            <p>Todavía no se ha configurado la lista de turnos. Pregúntale al administrador de la familia.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <a href="admin.html">Administración</a>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,461 @@
+/* ============================================
+   RESET — remove default browser spacing so
+   everything starts from the same baseline
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ============================================
+   ROOT VARIABLES — colors and fonts in one
+   place, so we only have to change them here
+   ============================================ */
+:root {
+    --ink: #1B2B22;        /* main text color, dark green-black */
+    --paper: #F4EFE1;      /* page background, warm off-white */
+    --paper-2: #EDE6D3;    /* card background, a touch darker */
+    --line: #CFC6A8;       /* borders and dividers */
+    --green: #1F3A2E;      /* buttons, "paid" color */
+    --stamp: #A63D2F;      /* "unpaid" color, warning-ish red */
+    --muted: #7A7460;      /* secondary/label text */
+
+    --font-body: Arial, Helvetica, sans-serif;
+    --font-mono: 'Courier New', monospace;
+}
+
+
+/* ============================================
+   BASE PAGE STYLES — this is the PHONE view,
+   since most people here read it on a phone
+   ============================================ */
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    padding: 16px;
+}
+
+header {
+    text-align: center;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+}
+
+header h1 {
+    font-family: var(--font-body);
+    font-size: 22px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section {
+    background-color: var(--paper-2);
+    border: 1px solid var(--ink);
+    padding: 16px;
+}
+
+section h2 {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+
+/* ============================================
+   BUTTONS + INPUTS
+   ============================================ */
+button {
+    font-family: var(--font-body);
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+#payBtn {
+    background-color: var(--green);
+    color: var(--paper);
+}
+
+#reminderBtn {
+    background: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+}
+
+input {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background-color: var(--paper);
+    color: var(--ink);
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+
+/* ============================================
+   CURRENT MONTH CARD
+   ============================================ */
+#currentName {
+    font-family: var(--font-mono);
+    font-size: 26px;
+    margin-bottom: 4px;
+}
+
+#currentMonth {
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+#confirmBadge {
+    color: var(--green);
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+
+/* ============================================
+   YEAR GRID
+   BASE (default): 6 columns x 2 rows -- more
+   room per card for names to fit on one line
+   PHONES (max-width below): 3 columns x 4 rows
+   ============================================ */
+#yearGrid {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important; /* minmax(0, 1fr) lets columns actually shrink instead of overflowing */
+    gap: 8px;
+}
+
+@media (max-width: 600px) {
+    #yearGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 6px;
+    }
+}
+
+.month-cell {
+    border: 1px solid var(--line);
+    background-color: var(--paper);
+    padding: 8px 4px;
+    text-align: center;
+    min-width: 0;          /* lets the box actually shrink to fit its column, instead of forcing overflow */
+    overflow: hidden;      /* safety net: nothing inside can push past this box's edge */
+    /* no fixed height here on purpose -- if the name needs
+       a 2nd line, the box just grows taller to fit it */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.month-cell .m-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.month-cell .m-name {
+    font-weight: bold;
+    font-size: 12px;
+    width: 100%;
+    overflow-wrap: break-word; /* long names wrap onto a 2nd line instead of getting cut off */
+    word-break: break-word;    /* stronger version of the line above, for older/other browsers */
+    hyphens: auto;
+}
+
+/* the paid/pendiente tag underneath the name */
+.month-cell .paid-tag,
+.month-cell .unpaid-tag {
+    font-size: 9px;
+}
+
+
+/* ============================================
+   HISTORY + ROTATION LISTS
+   ============================================ */
+.history-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.paid-tag {
+    color: var(--green);
+    font-size: 12px;
+}
+
+.unpaid-tag {
+    color: var(--stamp);
+    font-size: 12px;
+}
+
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+}
+
+footer a {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+
+/* ============================================
+   BIGGER SCREENS — tablets and computers.
+   We only need ONE breakpoint here since most
+   of the family is on their phones anyway.
+   ============================================ */
+@media (min-width: 700px) {
+    body {
+        max-width: 600px;
+        margin: 0 auto;   /* centers the page instead of stretching edge to edge */
+        padding: 40px 20px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    #yearGrid {
+        gap: 10px;
+    }
+
+    .month-cell {
+        padding: 12px 6px;
+    }
+
+    .month-cell .m-label {
+        font-size: 11px;
+    }
+
+    .month-cell .m-name {
+        font-size: 13px;
+    }
+}
+
+
+/* ============================================
+   ADMIN — PIN LOCK
+   (JS builds a <p>, maybe a <textarea>, an
+   <input>, and a <button> inside #pinGate)
+   ============================================ */
+#pinGate p {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+#pinGate label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+#pinGate textarea {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background-color: var(--paper);
+    color: var(--ink);
+    min-height: 90px;
+    margin-bottom: 12px;
+}
+
+#pinGate input {
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+#pinGate button {
+    background-color: var(--green);
+    color: var(--paper);
+}
+
+
+/* ============================================
+   ADMIN — ROTATION LIST (add/remove/reorder)
+   ============================================ */
+.payer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+}
+
+.payer-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.payer-actions button {
+    width: auto;
+    margin-top: 0;
+    padding: 6px 10px;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 12px;
+}
+
+.remove-btn {
+    background: none;
+    border: 1px solid var(--stamp);
+    color: var(--stamp);
+}
+
+.payer-actions .remove-btn {
+    border-color: var(--stamp);
+    color: var(--stamp);
+}
+
+/* the "add a name" input + button sit side by side */
+#manageSection .add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+#manageSection .add-row input {
+    margin-bottom: 0;
+}
+
+#manageSection .add-row button {
+    width: auto;
+    margin-top: 0;
+    padding: 10px 14px;
+    background-color: var(--green);
+    color: var(--paper);
+}
+
+
+/* ============================================
+   ADMIN — YEAR OVERVIEW (click a month to edit)
+   ============================================ */
+#yearSection > div:first-of-type,
+.year-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+}
+
+#yearPrev,
+#yearNext {
+    width: auto;
+    margin-top: 0;
+    padding: 4px 10px;
+    background: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+}
+
+.month-cell.clickable {
+    cursor: pointer;
+}
+
+.month-cell.clickable:hover {
+    border-color: var(--green);
+}
+
+/* the little edit box that appears below the grid */
+#editPanel {
+    margin-top: 16px;
+    padding: 14px;
+    background-color: var(--paper);
+    border: 1px dashed var(--line);
+}
+
+#editPanel select {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background-color: var(--paper-2);
+    color: var(--ink);
+    margin-bottom: 12px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.checkbox-row input {
+    width: auto;
+    margin-bottom: 0;
+}
+
+#editPanel .row {
+    display: flex;
+    gap: 8px;
+}
+
+#editPanel .row button {
+    margin-top: 0;
+}
+
+#editSave {
+    background-color: var(--green);
+    color: var(--paper);
+}
+
+#editCancel {
+    background: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+}
+
+
+/* ============================================
+   ADMIN — HISTORY (same list style as index.html,
+   plus a small "edit" link on each row)
+   ============================================ */
+.edit-link {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-decoration: underline;
+    width: auto;
+    margin-top: 0;
+    padding: 0;
+    cursor: pointer;
+}
