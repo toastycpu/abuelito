@@ -18,8 +18,8 @@
     --paper: #F4EFE1;      /* page background, warm off-white */
     --paper-2: #EDE6D3;    /* card background, a touch darker */
     --line: #CFC6A8;       /* borders and dividers */
-    --green: #1F3A2E;      /* buttons, "paid" color */
-    --stamp: #A63D2F;      /* "unpaid" color, warning-ish red */
+    --green: #477c64;      /* buttons, "paid" color */
+    --stamp: #b22f1d;      /* "unpaid" color, warning-ish red */
     --muted: #7A7460;      /* secondary/label text */
 
     --font-body: Arial, Helvetica, sans-serif;
@@ -215,9 +215,11 @@ input {
         font-size: 19px;
     }
 
-    .month-cell .paid-tag,
-    .month-cell .unpaid-tag {
+    .month-cell .paid-tag {
         font-size: 18px;
+    }
+    .month-cell .unpaid-tag {
+        font-size: 15px;
     }
     #rotationList p {
         font-size: 40px;
