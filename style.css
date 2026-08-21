@@ -125,6 +125,16 @@ input {
     margin-bottom: 0; /* the wrapping .amount-row handles the spacing instead */
 }
 
+.history-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;   /* was 20px */
+}
+
 /* ============================================
    CURRENT MONTH CARD
    ============================================ */

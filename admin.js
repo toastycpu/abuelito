@@ -88,7 +88,6 @@ async function loadState() {
     return {
         rotation: [],
         startMonth: null,
-        amount: "",
         records: {}
     };
 }
@@ -345,6 +344,7 @@ async function openEditPanel(key) {
         : whoseTurnIsIt(state.rotation, howManyMonthsPassed(state.startMonth, key));
 
     const isPaid = record ? record.paid : false;
+    const currentAmount = record && record.amount ? record.amount : '';
 
     // map() turns each name into an <option>, join() glues them together
     const optionsHtml = state.rotation.map(name => `
@@ -361,6 +361,8 @@ async function openEditPanel(key) {
             <input type="checkbox" id="editPaid" ${isPaid ? 'checked' : ''}>
             <label for="editPaid" style="margin:0;">Marked as paid</label>
         </div>
+        <label>Amount</label>
+        <input id="editAmount" type="text" inputmode="decimal" placeholder="amount" value="${currentAmount}">
         <div class="row">
             <button id="editCancel">Cancel</button>
             <button id="editSave">Save</button>
@@ -374,6 +376,7 @@ async function openEditPanel(key) {
     document.querySelector('#editSave').addEventListener('click', async function () {
         const chosenName = document.querySelector('#editName').value;
         const chosenPaid = document.querySelector('#editPaid').checked;
+        const chosenAmount = document.querySelector('#editAmount').value;
 
         const freshState = await loadState();
         const existing = freshState.records[key];
@@ -381,7 +384,8 @@ async function openEditPanel(key) {
         freshState.records[key] = {
             name: chosenName,
             paid: chosenPaid,
-            paidAt: chosenPaid ? (existing && existing.paidAt ? existing.paidAt : new Date().toISOString()) : null
+            paidAt: chosenPaid ? (existing && existing.paidAt ? existing.paidAt : new Date().toISOString()) : null,
+            amount: chosenAmount
         };
 
         await saveState(freshState);
@@ -415,10 +419,11 @@ async function renderHistory() {
         const record = state.records[key];
         const statusClass = record.paid ? 'paid-tag' : 'unpaid-tag';
         const statusText = record.paid ? 'PAID' : 'unpaid';
+        const amountText = record.amount ? ` — $${record.amount}` : '';
 
         return `
             <div class="history-row">
-                <span>${record.name} — ${monthLabelFromKey(key)}</span>
+                <span>${record.name} — ${monthLabelFromKey(key)}${amountText}</span>
                 <span class="${statusClass}">${statusText}</span>
                 <button class="edit-link" data-editkey="${key}">edit</button>
             </div>

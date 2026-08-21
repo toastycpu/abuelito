@@ -76,7 +76,7 @@ function monthLabelFromKey(key) {
 
 /* ============================================
    SAVING + LOADING
-   these are now "async" -- meaning they take a
+   these are "async" -- meaning they take a
    moment to finish, since they're reaching out
    to Firestore over the internet instead of
    reading instantly from this browser
@@ -91,7 +91,6 @@ async function loadState() {
     return {
         rotation: ["Rosita", "Javier", "Ofelia", "Maricela", "Lilia", "Fausto"],
         startMonth: "2026-01",
-        amount: "",
         records: {}
     };
 }
@@ -104,10 +103,10 @@ async function saveState(state) {
 /* ============================================
    BUILDING EACH PART OF THE PAGE
    ============================================ */
-function renderCurrentCard(record, monthLabel, amount) {
+function renderCurrentCard(record, monthLabel) {
     document.querySelector('#currentName').textContent = record.name;
     document.querySelector('#currentMonth').textContent = monthLabel;
-    document.querySelector('#amountInput').value = amount;
+    document.querySelector('#amountInput').value = record.amount || '';
 
     const payBtn = document.querySelector('#payBtn');
     const confirmBadge = document.querySelector('#confirmBadge');
@@ -176,10 +175,11 @@ function renderHistory(state, currentKey) {
         const record = state.records[key];
         const statusClass = record.paid ? 'paid-tag' : 'unpaid-tag';
         const statusText = record.paid ? 'PAGADO' : 'pendiente';
+        const amountText = record.amount ? ` — $${record.amount}` : '';
 
         return `
             <div class="history-row">
-                <span>${record.name} — ${monthLabelFromKey(key)}</span>
+                <span>${record.name} — ${monthLabelFromKey(key)}${amountText}</span>
                 <span class="${statusClass}">${statusText}</span>
             </div>
         `;
@@ -223,7 +223,8 @@ async function updateDisplay() {
         state.records[currentKey] = {
             name: name,
             paid: false,
-            paidAt: null
+            paidAt: null,
+            amount: ""
         };
 
         await saveState(state);
@@ -231,7 +232,7 @@ async function updateDisplay() {
 
     const record = state.records[currentKey];
 
-    renderCurrentCard(record, monthLabel, state.amount);
+    renderCurrentCard(record, monthLabel);
     renderYearGrid(state, today.getFullYear(), currentKey);
     renderHistory(state, currentKey);
     renderRotationList(state);
@@ -249,7 +250,7 @@ function setupPayButton() {
         const currentKey = getMonthKey(new Date());
         const record = state.records[currentKey];
 
-        state.amount = document.querySelector('#amountInput').value;
+        record.amount = document.querySelector('#amountInput').value;
         record.paid = true;
         record.paidAt = new Date().toISOString();
 
@@ -267,7 +268,7 @@ function setupReminderButton() {
         const record = state.records[currentKey];
         const monthLabel = formatMonthLabel(new Date());
 
-        const amountText = state.amount ? `$${state.amount}` : 'el monto habitual';
+        const amountText = record.amount ? `$${record.amount}` : 'el monto habitual';
         const message = `Recordatorio: le toca a ${record.name} pagar la cuota de ${monthLabel} (${amountText}). ${window.location.href}`;
 
         navigator.clipboard.writeText(message);
