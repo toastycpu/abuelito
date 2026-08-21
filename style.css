@@ -35,6 +35,7 @@ body {
     background-color: var(--paper);
     color: var(--ink);
     font-family: var(--font-body);
+    font-size: 17px;   /* bigger base text size, easier to read on phones */
     padding: 16px;
 }
 
@@ -46,8 +47,8 @@ header {
 }
 
 header h1 {
-    font-family: var(--font-body);
-    font-size: 22px;
+    font-family: var(--font-mono);
+    font-size: 26px;
 }
 
 main {
@@ -64,7 +65,7 @@ section {
 
 section h2 {
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 16px;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 12px;
@@ -77,9 +78,9 @@ section h2 {
 button {
     font-family: var(--font-body);
     font-weight: bold;
-    font-size: 14px;
+    font-size: 17px;
     border: none;
-    padding: 12px;
+    padding: 14px;
     width: 100%;
     margin-top: 8px;
     cursor: pointer;
@@ -98,8 +99,8 @@ button {
 
 input {
     font-family: var(--font-mono);
-    font-size: 16px;
-    padding: 8px;
+    font-size: 17px;
+    padding: 10px;
     border: 1px solid var(--line);
     background-color: var(--paper);
     color: var(--ink);
@@ -113,18 +114,19 @@ input {
    ============================================ */
 #currentName {
     font-family: var(--font-mono);
-    font-size: 26px;
+    font-size: 32px;
     margin-bottom: 4px;
 }
 
 #currentMonth {
     color: var(--muted);
+    font-size: 18px;
     margin-bottom: 12px;
 }
 
 #confirmBadge {
     color: var(--green);
-    font-size: 13px;
+    font-size: 15px;
     margin-top: 8px;
 }
 
@@ -166,14 +168,14 @@ input {
 
 .month-cell .m-label {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--muted);
     text-transform: uppercase;
 }
 
 .month-cell .m-name {
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     width: 100%;
     overflow-wrap: break-word; /* long names wrap onto a 2nd line instead of getting cut off */
     word-break: break-word;    /* stronger version of the line above, for older/other browsers */
@@ -183,7 +185,24 @@ input {
 /* the paid/pendiente tag underneath the name */
 .month-cell .paid-tag,
 .month-cell .unpaid-tag {
-    font-size: 9px;
+    font-size: 11px;
+}
+
+/* phones drop to 3 columns, which leaves more room per box --
+   use that extra space for even bigger, easier-to-read text */
+@media (max-width: 600px) {
+    .month-cell .m-label {
+        font-size: 15px;
+    }
+
+    .month-cell .m-name {
+        font-size: 19px;
+    }
+
+    .month-cell .paid-tag,
+    .month-cell .unpaid-tag {
+        font-size: 14px;
+    }
 }
 
 
@@ -193,18 +212,24 @@ input {
 .history-row {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--line);
+    font-size: 17px;
 }
 
 .paid-tag {
     color: var(--green);
-    font-size: 12px;
+    font-size: 17px;
 }
 
 .unpaid-tag {
     color: var(--stamp);
-    font-size: 12px;
+    font-size: 17px;
+}
+
+#rotationList p {
+    font-size: 18px;
+    padding: 4px 0;
 }
 
 
@@ -221,7 +246,7 @@ footer {
 footer a {
     color: var(--muted);
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 14px;
 }
 
 
