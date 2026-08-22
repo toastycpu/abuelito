@@ -154,6 +154,41 @@ input {
 
 
 /* ============================================
+   WEEKLY (FOOD) CARD
+   same look as the current month card above --
+   just mirrored onto the weekly* ids
+   ============================================ */
+#weeklyPayBtn {
+    background-color: var(--green);
+    color: var(--paper);
+}
+
+#weeklyReminderBtn {
+    background: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+}
+
+#weeklyName {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    margin-bottom: 4px;
+}
+
+#weeklyWeekLabel {
+    color: var(--muted);
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+#weeklyConfirmBadge {
+    color: var(--green);
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+
+/* ============================================
    YEAR GRID
    BASE (default): 6 columns x 2 rows -- more
    room per card for names to fit on one line
